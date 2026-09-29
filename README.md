@@ -100,6 +100,60 @@ JavaScript — Data processing and validation
 RSS/XML — News ingestion
 REST APIs — Integrations
 Docker — Local n8n environment
+## ▶️ How to Run
+
+### 1. Install n8n
+
+Run n8n locally using Docker or another supported installation method.
+
+### 2. Import the workflows
+
+Import these files from the `workflows` folder:
+
+- `linkedin-content-agent.json`
+- `linkedin-approval-handler.json`
+
+### 3. Configure credentials
+
+Connect your own credentials inside n8n for:
+
+- Google Sheets
+- Google Gemini
+- Telegram
+
+Never store credentials directly in the workflow files or GitHub.
+
+### 4. Configure Google Sheets
+
+Create a Google Sheet containing:
+
+- Project data
+- Post History
+
+The Post History sheet tracks generated posts, approval status, and Approval IDs.
+
+### 5. Configure Telegram
+
+Create a Telegram bot and connect it to n8n.
+
+Generated posts are sent to Telegram for human approval.
+
+### 6. Run the workflow
+
+The content workflow generates the selected content type, validates it, stores it in Post History, and sends it for approval.
+
+The approval workflow handles:
+
+```text
+✅ Approve → Approved
+❌ Reject  → Rejected
+⚠️ Current Limitation
+
+Direct automatic LinkedIn API publishing is not included in the current version.
+
+The automation currently completes the content generation, validation, history tracking, and Telegram approval workflow.
+
+LinkedIn API publishing is planned as the next integration.
 📂 Repository Structure
 linkedin-content-automation-agent/
 │
