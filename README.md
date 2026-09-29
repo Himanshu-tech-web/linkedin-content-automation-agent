@@ -261,8 +261,3 @@ The main goal is to make AI automation more reliable and structured.
 
 Built as a personal project to explore n8n, AI automation, workflow design, APIs, and human-in-the-loop systems.
 
-
-After pasting it, use this commit message:
-
-```text
-Improve project documentation
