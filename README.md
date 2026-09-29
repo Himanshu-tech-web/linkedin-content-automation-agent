@@ -3,7 +3,8 @@
 An AI-powered LinkedIn content automation system built with **n8n, Google Gemini, Google Sheets, Telegram, and JavaScript**.
 
 The system automates LinkedIn content creation, validates generated posts, prevents duplicate topics, stores post history, and sends posts to Telegram for human approval.
-![LinkedIn Content Automation Agent - Project Overview](project-overview.png)
+![LinkedIn Content Automation Agent - Project Overview](screenshots/project-overview.png)
+
 ## 🚀 Project Overview
 
 The automation supports three main content types:
