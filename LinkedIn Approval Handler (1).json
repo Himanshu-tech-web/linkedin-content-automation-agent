@@ -1,0 +1,514 @@
+{
+  "name": "LinkedIn Approval Handler",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -208,
+        0
+      ],
+      "id": "e3b13b3d-c6e2-404d-b07e-515b70ebe06a",
+      "name": "Telegram Trigger",
+      "webhookId": "45904705-b71d-403f-9f61-c59f4c042409",
+      "credentials": {
+        "telegramApi": {
+          "id": "QfYEmqSbXzIMG4xa",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "533af97e-85b8-49e3-aff8-c3122b515a51",
+              "leftValue": "={{ String($('Telegram Trigger').first().json.callback_query.data || '').startsWith('approve_') }}",
+              "rightValue": "approve",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        384,
+        304
+      ],
+      "id": "ec070b1f-8416-42db-98e5-bb6fbf6590dd",
+      "name": "Approve or Reject?"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1AXHq6Y5v8K1YcZsr5jytKXZCk919EohIH81Pp6mpKTk",
+          "mode": "list",
+          "cachedResultName": "Linkedin Agent",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1AXHq6Y5v8K1YcZsr5jytKXZCk919EohIH81Pp6mpKTk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1003126394,
+          "mode": "list",
+          "cachedResultName": "Post History",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1AXHq6Y5v8K1YcZsr5jytKXZCk919EohIH81Pp6mpKTk/edit#gid=1003126394"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $json.row_number }}",
+            "Status": "Approved"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Type",
+              "displayName": "Type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Project",
+              "displayName": "Project",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Topic",
+              "displayName": "Topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Angle",
+              "displayName": "Angle",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Post",
+              "displayName": "Post",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LinkedIn URL",
+              "displayName": "LinkedIn URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        544,
+        -16
+      ],
+      "id": "bb14751d-72ee-4dd5-9b53-80285ce843c1",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "EY1j6ptYOLTLNZ6a",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1AXHq6Y5v8K1YcZsr5jytKXZCk919EohIH81Pp6mpKTk",
+          "mode": "list",
+          "cachedResultName": "Linkedin Agent",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1AXHq6Y5v8K1YcZsr5jytKXZCk919EohIH81Pp6mpKTk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1003126394,
+          "mode": "list",
+          "cachedResultName": "Post History",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1AXHq6Y5v8K1YcZsr5jytKXZCk919EohIH81Pp6mpKTk/edit#gid=1003126394"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $json.row_number }}",
+            "Status": "Rejected"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Type",
+              "displayName": "Type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Project",
+              "displayName": "Project",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Topic",
+              "displayName": "Topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Angle",
+              "displayName": "Angle",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Post",
+              "displayName": "Post",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LinkedIn URL",
+              "displayName": "LinkedIn URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        704,
+        384
+      ],
+      "id": "3ac17dfe-0820-43ca-9e21-341122dbfad7",
+      "name": "Update row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "EY1j6ptYOLTLNZ6a",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query.message.chat.id }}",
+        "text": "={{ $('Telegram Trigger').first().json.callback_query.data.startsWith('approve_') ? '✅ Post approved successfully.' : '❌ Post rejected.' }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1040,
+        144
+      ],
+      "id": "f8b9ea81-e101-4227-8efb-6e20cdc40363",
+      "name": "Send a text message",
+      "webhookId": "9734b078-0d42-422b-b8ec-e100d3a3bf29",
+      "credentials": {
+        "telegramApi": {
+          "id": "QfYEmqSbXzIMG4xa",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "queryId": "={{ $json.callback_query.id }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -32,
+        0
+      ],
+      "id": "53236170-c412-4742-aaf7-335b862b6037",
+      "name": "Answer Query a callback",
+      "webhookId": "d9fc0b71-fd0a-43cf-b274-3b37f78f6624",
+      "credentials": {
+        "telegramApi": {
+          "id": "QfYEmqSbXzIMG4xa",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1AXHq6Y5v8K1YcZsr5jytKXZCk919EohIH81Pp6mpKTk",
+          "mode": "list",
+          "cachedResultName": "Linkedin Agent",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1AXHq6Y5v8K1YcZsr5jytKXZCk919EohIH81Pp6mpKTk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1003126394,
+          "mode": "list",
+          "cachedResultName": "Post History",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1AXHq6Y5v8K1YcZsr5jytKXZCk919EohIH81Pp6mpKTk/edit#gid=1003126394"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Approval ID",
+              "lookupValue": "={{ $('Telegram Trigger').first().json.callback_query.data.replace(/^(approve|reject)_/, '') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        -16
+      ],
+      "id": "eedcd200-707b-46eb-8e73-77949a89e37e",
+      "name": "Get row(s) in sheet",
+      "alwaysOutputData": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "EY1j6ptYOLTLNZ6a",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Answer Query a callback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Approve or Reject?": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Answer Query a callback": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Approve or Reject?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "9894ba68-87bf-49a0-a653-19904d669574",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "552ac2ae32bab4b2e1ac2cbcc01f090824342e7ebae1d12154182fd950dd3f55"
+  },
+  "nodeGroups": [],
+  "id": "2m6cFALxd1Jq7s1g",
+  "tags": []
+}
